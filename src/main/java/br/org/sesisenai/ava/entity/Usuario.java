@@ -62,7 +62,7 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO>, UserDe
 
     @Override
     public String getUsername() {
-        return nome;
+        return email;
     }
 
     @Override
