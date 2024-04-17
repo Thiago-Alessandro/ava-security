@@ -2,23 +2,20 @@ package br.org.sesisenai.ava.entity;
 
 import br.org.sesisenai.ava.dto.abstraction.ResponseConversorDTO;
 import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioResponseDTO;
+import br.org.sesisenai.ava.security.model.UserDetailsRecord;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO>, UserDetails {
+public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +34,8 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO>, UserDe
     @OneToMany(mappedBy = "usuario")
     private Set<Inscricao> inscricoes;
 
+    private UserDetailsRecord userDetails;
+
     public UsuarioResponseDTO toDTO() {
         UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO();
         usuarioResponseDTO.setId(this.id);
@@ -50,40 +49,6 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO>, UserDe
         this.id = id;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public String getPassword() {
-        return senha;
-    }
-
-    @Override
-    public String getUsername() {
-        return nome;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
 
 
