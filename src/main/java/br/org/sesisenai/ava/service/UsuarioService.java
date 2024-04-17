@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class UsuarioService {
 
     @Autowired

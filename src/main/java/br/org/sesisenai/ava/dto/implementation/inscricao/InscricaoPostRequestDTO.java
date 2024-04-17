@@ -22,6 +22,7 @@ public class InscricaoPostRequestDTO implements CriacaoRequestConversorDTO<Inscr
     @Override
     public Inscricao toEntity() {
         Inscricao inscricao = new Inscricao();
+        inscricao.setId(new InscricaoId(cursoId, usuarioId));
         inscricao.setCurso(new Curso(cursoId));
         inscricao.setUsuario(new Usuario(usuarioId));
         inscricao.setDataInscricao(LocalDateTime.now());

@@ -14,12 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @Service
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class CursoService {
 
     @Autowired
@@ -42,6 +42,7 @@ public class CursoService {
 
     public CursoResponseDTO adicionarCurso(CursoPostRequestDTO cursoDTO) {
         Curso curso = cursoDTO.toEntity();
+        curso.setDataCriacao(LocalDateTime.now());
         cursoRepository.save(curso);
         return curso.toDTO();
     }

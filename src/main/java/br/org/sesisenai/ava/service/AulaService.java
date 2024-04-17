@@ -6,6 +6,7 @@ import br.org.sesisenai.ava.dto.implementation.aula.AulaResponseDTO;
 import br.org.sesisenai.ava.entity.Aula;
 import br.org.sesisenai.ava.entity.Curso;
 import br.org.sesisenai.ava.repository.AulaRepository;
+import br.org.sesisenai.ava.repository.CursoRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,13 @@ public class AulaService {
     private AulaRepository aulaRepository;
     private CursoService cursoService;
 
+    private CursoRepository cursoRepository;
+
     public AulaResponseDTO adicionarAula(Long cursoId, AulaPostRequestDTO aulaDTO) {
         try {
             cursoService.verificarExistencia(cursoId);
             Aula aula = aulaDTO.toEntity();
+            aula.setCurso(cursoRepository.getReferenceById(cursoId));
             aula = aulaRepository.save(aula);
             return aula.toDTO();
         } catch (Exception e) {
@@ -50,14 +54,14 @@ public class AulaService {
     }
 
     public void deletarAula(Long cursoId, Long aulaId) {
-        if (aulaRepository.existsByCursoIdAndId(cursoId, aulaId)) {
+        if (!aulaRepository.existsByCursoIdAndId(cursoId, aulaId)) {
             throw new NoSuchElementException();
         }
         aulaRepository.deleteById(aulaId);
     }
 
     public AulaResponseDTO buscarAula(Long cursoId, Long aulaId) {
-        if (aulaRepository.existsByCursoIdAndId(cursoId, aulaId)) {
+        if (!aulaRepository.existsByCursoIdAndId(cursoId, aulaId)) {
             throw new NoSuchElementException();
         }
         Aula aula = aulaRepository.findById(aulaId).get();
