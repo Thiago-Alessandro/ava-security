@@ -3,6 +3,7 @@ package br.org.sesisenai.ava.security.model.entity;
 import br.org.sesisenai.ava.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.Collection;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserDetailsEntity implements UserDetails {
 
     @Id
