@@ -18,11 +18,14 @@ public class DatabaseConfig {
         createUserTest();
     }
 
-    public Usuario createUserTest(){
+    public void createUserTest(){
+        if(usuarioRepository.findByEmail("thiago")!=null){
+            return;
+        }
         Usuario user = new Usuario();
         user.setSenha(new BCryptPasswordEncoder().encode("thiago123"));
         user.setEmail("thiago");
-        return usuarioRepository.save(user);
+        usuarioRepository.save(user);
     }
 
 }
